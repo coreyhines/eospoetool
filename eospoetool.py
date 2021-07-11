@@ -72,7 +72,7 @@ def main():
         p_action = "poe disabled"
     elif action == "on":
         p_action = "no poe disabled"
-    elif action =="toggle":
+    elif action == "toggle":
         p_action = "toggle"
     else:
         print("\nunknown action requested. Exiting!")
