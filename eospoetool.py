@@ -79,7 +79,7 @@ def main():
         exit()
     
     print(f"\nPoE Action: {action} requested on:\n{host}\tEthernet {port}\n")
-    result = poecontrol(host, user, passwd, port, p_action)
+    poecontrol(host, user, passwd, port, p_action)
 
 if __name__ == '__main__':
     main()
