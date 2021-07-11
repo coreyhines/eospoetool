@@ -78,9 +78,8 @@ def main():
         print("unknown action requested. Exiting!")
         exit
     
-    print(f"p_action: {p_action} and action: {action}")
+    print(f"\nPoE Action: {action} requested on:\n{host}\tEthernet {port}\n")
     result = poecontrol(host, user, passwd, port, p_action)
-    print(f"Result: {result}")
 
 if __name__ == '__main__':
     main()
