@@ -1,4 +1,5 @@
 # eospoetool
+<pre>
 Simple Pyhon3 script to turn PoE on, off, or toggle
 
 (main) » ./eospoetool.py -h                                                                                         chines@strongbad
@@ -13,4 +14,4 @@ optional arguments:
   -e PORT, --port PORT  specify an Ethernet port number
   -a ACTION, --action ACTION
                         specify an action of: on|off|toggle
-------------------------------------------------------------------
+</pre>
