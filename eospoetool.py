@@ -75,8 +75,8 @@ def main():
     elif action =="toggle":
         p_action = "toggle"
     else:
-        print("unknown action requested. Exiting!")
-        exit
+        print("\nunknown action requested. Exiting!")
+        exit()
     
     print(f"\nPoE Action: {action} requested on:\n{host}\tEthernet {port}\n")
     result = poecontrol(host, user, passwd, port, p_action)
