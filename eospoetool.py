@@ -14,7 +14,7 @@ def poecontrol(hostname, user, passwd, port, p_action):
         user (string): user name
         passwd (string): password
         port (uint): port number 
-        action (string): on|off|toggle
+        p_action (string): on|off|toggle
     """
     host = hostname.strip()
     _create_unverified_https_context = ssl._create_unverified_context
