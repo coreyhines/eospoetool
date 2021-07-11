@@ -1,7 +1,7 @@
 # eospoetool
-<pre>
 Simple Pyhon3 script to turn PoE on, off, or toggle
 
+<pre>
 (main) » ./eospoetool.py -h                                                                                         chines@strongbad
 usage: eospoetool.py [-h] -s HOST -u USER -p PASSWD -e PORT -a ACTION
 
