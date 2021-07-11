@@ -1,5 +1,5 @@
 # eospoetool
-Simple Pyhon3 script to turn PoE on, off, or toggle
+Simple Python3 script to turn PoE on, off, or toggle
 
 <pre>
 (main) » ./eospoetool.py -h                                                                                         chines@strongbad
