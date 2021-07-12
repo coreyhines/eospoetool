@@ -30,12 +30,12 @@ def poecontrol(hostname, user, passwd, port, p_action, action):
                 version=1, cmds=['enable', f'show poe interface Ethernet {port}'], format='json')
             try:
                 if ispoePort:
-                    print(f'\tEthernet {port}, on {host} is PoE capable')
+                    print(f'\t\t\tEthernet {port}, on {host} is PoE capable')
                     if p_action != "toggle":
                         result = device.runCmds(
                             version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', f'{p_action}'], format='text')
                         print(
-                            f'\tEthernet {port}, on {host} action {action.upper()} has been executed')
+                            f'\t\t\tEthernet {port}, on {host} action {action.upper()} has been executed')
                     else:
                         result = device.runCmds(
                             version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', 'poe disabled'], format='text')
@@ -43,7 +43,7 @@ def poecontrol(hostname, user, passwd, port, p_action, action):
                         result1 = device.runCmds(
                             version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', 'no poe disabled'], format='text')
                         print(
-                            f'\tEthernet {port}, on {host} action {action.upper()} has been executed')
+                            f'\t\t\tEthernet {port}, on {host} action {action.upper()} has been executed')
             except:
                 print(f'{host} / Ethernet {port} does not support PoE, exiting!')
                 exit()
@@ -91,7 +91,7 @@ def main():
         exit()
 
     print(
-        f"\nPoE Action: Power {action.upper()} requested on:\n{host}\tEthernet {port}\n")
+        f"\nPoE Action: Power {action.upper()} requested on:\n\n\t{host}\t\tEthernet {port}")
     poecontrol(host, user, passwd, port, p_action, action)
 
 
