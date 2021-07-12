@@ -6,7 +6,8 @@ import argparse
 import os
 import time
 
-def poecontrol(hostname, user, passwd, port, p_action):
+
+def poecontrol(hostname, user, passwd, port, p_action, action):
     """Connect to switch and manipulate the poe on a port
 
     Args:
@@ -24,23 +25,34 @@ def poecontrol(hostname, user, passwd, port, p_action):
         pingstatus = "Network Active"
         try:
             device = Server(
-                'https://{}:{}@{}/command-api'.format(user, passwd, host))                  
-            if p_action != "toggle":
-                result = device.runCmds(
-                    version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', f'{p_action}'], format='text')
-            else:
-                result = device.runCmds(
-                    version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', 'poe disabled'], format='text')
-                time.sleep(3)
-                result1 = device.runCmds(
-                    version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', 'no poe disabled'], format='text')
+                'https://{}:{}@{}/command-api'.format(user, passwd, host))
+            ispoePort = device.runCmds(
+                version=1, cmds=['enable', f'show poe interface Ethernet {port}'], format='json')
+            try:
+                if ispoePort:
+                    print(f'\tEthernet {port}, on {host} is PoE capable')
+                    if p_action != "toggle":
+                        result = device.runCmds(
+                            version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', f'{p_action}'], format='text')
+                        print(
+                            f'\tEthernet {port}, on {host} action {action.upper()} has been executed')
+                    else:
+                        result = device.runCmds(
+                            version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', 'poe disabled'], format='text')
+                        time.sleep(3)
+                        result1 = device.runCmds(
+                            version=1, cmds=['enable', 'configure terminal', f'interface Ethernet {port}', 'no poe disabled'], format='text')
+                        print(
+                            f'\tEthernet {port}, on {host} action {action.upper()} has been executed')
+            except:
+                print(f'{host} / Ethernet {port} does not support PoE, exiting!')
+                exit()
         except Exception as e:
             print(
                 f"something went wrong on {host}, check password\n\n{str(e)}\n")
     else:
         pingstatus = "Network Error"
-        print(f"{pingstatus}: {host} does not respond to ping, moving on..\n")    
-
+        print(f"{pingstatus}: {host} does not respond to ping, moving on..\n")
 
 
 def main():
@@ -77,9 +89,11 @@ def main():
     else:
         print("\nunknown action requested. Exiting!")
         exit()
-    
-    print(f"\nPoE Action: {action} requested on:\n{host}\tEthernet {port}\n")
-    poecontrol(host, user, passwd, port, p_action)
+
+    print(
+        f"\nPoE Action: Power {action.upper()} requested on:\n{host}\tEthernet {port}\n")
+    poecontrol(host, user, passwd, port, p_action, action)
+
 
 if __name__ == '__main__':
     main()
