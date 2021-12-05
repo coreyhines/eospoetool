@@ -25,7 +25,7 @@ def poecontrol(hostname, user, passwd, port, p_action, action):
         pingstatus = "Network Active"
         try:
             device = Server(
-                'https://{}:{}@{}/command-api'.format(user, passwd, host))
+                f'https://{user}:{passwd}@{host}/command-api')
             ispoePort = device.runCmds(
                 version=1, cmds=['enable', f'show poe interface Ethernet {port}'], format='json')
             try:
