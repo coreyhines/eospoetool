@@ -5,7 +5,7 @@ import ssl
 import argparse
 import os
 import time
-
+import getpass
 
 def poecontrol(hostname, user, passwd, port, p_action, action):
     """Connect to switch and manipulate the poe on a port
@@ -65,7 +65,7 @@ def main():
         help="specify a username", required=True)
     parser.add_argument(
         "-p", "--passwd", type=str, default="",
-        help="for passing password interactively", required=True)
+        help="for passing password interactively", required=False)
     parser.add_argument(
         "-e", "--port", type=int, default="",
         help="specify an Ethernet port number", required=True)
@@ -76,9 +76,12 @@ def main():
 
     host = args.host
     user = args.user
-    passwd = args.passwd
     port = args.port
     action = args.action
+    if args.passwd:
+        passwd = args.passwd
+    else:
+        passwd = getpass.getpass(f"Enter the password for {user} user: ")
 
     if action == "off":
         p_action = "poe disabled"
